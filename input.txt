@@ -1,0 +1,33 @@
+1.
+{
+  "name": "Siyam Talukder",
+  "email": "siyam.talukder.101@gmail.com",
+  "password": "mySecurePassword123"
+}
+
+2.
+http://localhost:3000/customers/search?item=pizza
+
+4.
+{
+  "address": "AIUB Campus, Dhaka",
+  "phone": "01711111111"
+}
+
+5.
+{
+  "phone": "01822222222"
+}
+
+6.
+{
+  "restaurantId": 5,
+  "paymentMethod": "Cash",
+  "voucherCode": "WINTER20",
+  "items": [
+    {
+      "itemId": 10,
+      "quantity": 2
+    }
+  ]
+}
