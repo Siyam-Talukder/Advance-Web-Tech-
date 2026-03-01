@@ -1,10 +1,13 @@
 1.
 {
   "name": "Siyam Talukder",
-  "email": "siyam.talukder.101@gmail.com",
-  "password": "mySecurePassword123"
+  "email": "siyam@example.com",
+  "password": "SecurePassword@2026",
+  "dateOfBirth": "2001-05-15",
+  "socialMediaLink": "https://facebook.com/siyam",
+  "phone": "01712345678",
+  "address": "Dhaka, Bangladesh"
 }
-
 2.
 http://localhost:3000/customers/search?item=pizza
 
