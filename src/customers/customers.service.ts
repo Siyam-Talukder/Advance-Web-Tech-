@@ -67,8 +67,8 @@ export class CustomersService {
   async replaceProfile(id: number, updateDto: UpdateCustomerDto) {
     const customer = await this.getProfile(id); 
 
-    customer.address = updateDto.address;
-    customer.phone = updateDto.phone;
+    if (updateDto.address) customer.address = updateDto.address;
+    if (updateDto.phone) customer.phone = updateDto.phone;
     if (updateDto.name) customer.user.name = updateDto.name;
     
     await this.customerRepository.save(customer);
