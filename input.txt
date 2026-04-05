@@ -10,7 +10,13 @@ http://localhost:3000/customers/register
   "address": "Dhaka, Bangladesh"
 }
 2.
-http://localhost:3000/customers/search?item=pizza
+http://localhost:3000/auth/login
+  {
+  "email": "siyam@test.com",
+  "password": "StrongPassword@123"
+  }
+
+  http://localhost:3000/customers/1/profile
 
 4.
 {
