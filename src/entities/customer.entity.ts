@@ -5,18 +5,18 @@ import { Order } from './order.entity';
 @Entity('customers')
 export class Customer {
   @PrimaryGeneratedColumn()
-  customerId: number;
+  customerId!: number;
 
   @Column()
-  address: string;
+  address!: string;
 
   @Column()
-  phone: string;
+  phone!: string;
 
   @OneToOne(() => User, user => user.customer, { cascade: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' }) 
-  user: User;
+  user!: User;
 
   @OneToMany(() => Order, order => order.customer, { cascade: true })
-  orders: Order[];
+  orders!: Order[];
 }
