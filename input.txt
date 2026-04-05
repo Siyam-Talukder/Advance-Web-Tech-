@@ -35,3 +35,5 @@ http://localhost:3000/customers/search?item=pizza
     }
   ]
 }
+
+7. tifv zsze ktqp oqnc

@@ -1,17 +1,19 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { CreateCustomerDto, UpdateCustomerDto } from './dto/customer.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
-import { CreateCustomerDto, UpdateCustomerDto } from './dto/customer.dto';
 import { Customer } from '../entities/customer.entity';
 import { Order } from '../entities/order.entity';
 import { UserRole } from '../enums/user-role.enum';
+import { MailerService } from '@nestjs-modules/mailer';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class CustomersService {
   constructor(
     @InjectRepository(Customer) private customerRepository: Repository<Customer>,
     @InjectRepository(Order) private orderRepository: Repository<Order>, 
+    private readonly mailerService: MailerService,
   ) {}
 
 
@@ -33,8 +35,18 @@ export class CustomersService {
         role: UserRole.CUSTOMER,
       },
     });
-
     const savedCustomer = await this.customerRepository.save(newCustomer);
+
+    try {
+      await this.mailerService.sendMail({
+        to: savedCustomer.user.email, 
+        subject: 'Welcome to FoodHouse!',
+        text: `Hello ${savedCustomer.user.name},\n\nWelcome to FoodHouse! Your account has been successfully created. You can now log in and place your orders.\n\nBest Regards,\nThe FoodHouse Team`,
+      });
+      console.log('Welcome email sent successfully!');
+    } catch (error) {
+      console.error('Failed to send email:', error);
+    }
     return { message: "Customer registered successfully", customerId: savedCustomer.customerId };
   }
  

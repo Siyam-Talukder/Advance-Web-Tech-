@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CustomersModule } from './customers/customers.module';
 import { DBModule } from './db/db.module';
 import { AuthModule } from './auth/auth.module';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -19,8 +20,23 @@ import { AuthModule } from './auth/auth.module';
       database: 'FoodHouse', 
       autoLoadEntities: true, 
       synchronize: true,
-    }), AuthModule
+    }), AuthModule,
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: 'mdsiyamtalukder1@gmail.com', 
+          pass: 'tifvzszektqpoqnc',    
+        },
+      },
+      defaults: {
+        from: '"FoodHouse Admin" <no-reply@foodhouse.com>',
+      },
+    }),
   ],
+  
   controllers: [AppController],
   providers: [AppService],
 })
