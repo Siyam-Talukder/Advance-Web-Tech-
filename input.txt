@@ -1,11 +1,12 @@
 1.
+http://localhost:3000/customers/register
 {
   "name": "Siyam Talukder",
-  "email": "siyam@example.com",
-  "password": "SecurePassword@2026",
+  "email": "siyam@test.com",
+  "password": "StrongPassword@123",
   "dateOfBirth": "2001-05-15",
-  "socialMediaLink": "https://facebook.com/siyam",
-  "phone": "01712345678",
+  "socialMediaLink": "https://github.com/siyam",
+  "phone": "01711111111",
   "address": "Dhaka, Bangladesh"
 }
 2.
