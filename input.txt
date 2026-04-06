@@ -16,7 +16,35 @@ http://localhost:3000/auth/login
   "password": "StrongPassword@123"
   }
 
-  http://localhost:3000/customers/1/profile
+http://localhost:3000/customers/1/profile
+
+3.
+POST
+http://localhost:3000/customers/1/orders
+{
+  "orderId": 1,
+  "total": 19.50,
+  "status": "PENDING",
+  "items": [
+    {
+      "itemId": 1,
+      "foodName": "Burger",
+      "quantity": 3,
+      "price": 5.50
+    },
+    {
+      "itemId": 2,
+      "foodName": "French Fries",
+      "quantity": 1,
+      "price": 3.00
+    }
+  ],
+  "customer": {
+    "customerId": 1,
+    "address": "123 Main St",
+    "phone": "555-1234"
+  }
+}
 
 4.
 {

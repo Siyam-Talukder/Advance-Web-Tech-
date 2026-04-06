@@ -7,6 +7,7 @@ import { Order } from '../entities/order.entity';
 import { UserRole } from '../enums/user-role.enum';
 import { MailerService } from '@nestjs-modules/mailer';
 import * as bcrypt from 'bcrypt';
+import { CreateOrderDto } from './dto/create-order.dto';
 
 @Injectable()
 export class CustomersService {
@@ -115,6 +116,48 @@ export class CustomersService {
     await this.orderRepository.remove(order);
     
     return { message: `Order #${orderId} has been successfully deleted` };
+  }
+
+  async placeOrder(customerId: number, createOrderDto: CreateOrderDto) {
+    const customer = await this.customerRepository.findOne({ where: { customerId } });
+    if (!customer) throw new NotFoundException('Customer not found');
+
+    let calculatedTotal = 0;
+
+    const orderItems = createOrderDto.items.map(item => {
+      calculatedTotal += (item.price * item.quantity); 
+      
+      return {
+        foodName: item.foodName,
+        quantity: item.quantity,
+        price: item.price
+      };
+    });
+
+    const newOrder = this.orderRepository.create({
+      total: calculatedTotal,
+      status: 'PENDING',
+      customer: customer,
+      items: orderItems,
+    });
+
+    const savedOrder = await this.orderRepository.save(newOrder);
+
+    delete (savedOrder as any).customer;
+    return { message: 'Order placed successfully', order: savedOrder };
+  }
+
+  async getOrderDetails(orderId: number) {
+    const order = await this.orderRepository.findOne({
+      where: { orderId: orderId },
+      relations: ['items', 'customer'], 
+    });
+
+    if (!order) {
+      throw new NotFoundException(`Order #${orderId} was not found`);
+    }
+
+    return order;
   }
 
 }
